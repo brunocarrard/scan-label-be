@@ -2,13 +2,14 @@ const express = require('express')
 const cors = require('cors');
 const mssql = require('mssql');
 
-const app = express()
+var app = express.createServer();
 const port = 3000
 
 app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 
 const config = {
     user: 'IsahIsah',
@@ -20,8 +21,8 @@ const config = {
         port: 1433,
     }
   };
-
-app.get('/', async (req, res) => {
+  
+app.get('/iisnode\www\scan-label-be', async (req, res) => {
     let { suaPropriedade } = req.query;
     if (!suaPropriedade) {
       return res.status(400).send('A propriedade é obrigatória na requisição.');
@@ -34,7 +35,7 @@ app.get('/', async (req, res) => {
   
 })
 
-app.post('/dellines', async (req, res) => {
+app.post('iisnode\www\scan-label-be/dellines', async (req, res) => {
   let delLines = VerifyV1(req.body.delLines);
   let oldDelLines = await GetDelLines(req.body.ordNr)
   oldDelLines.forEach(line => {
@@ -185,7 +186,7 @@ function workData(result) {
   return workedData
 }
 
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+app.listen(process.env.PORT);
+// app.listen(port, () => {
+//   console.log(`Example app listening on port ${port}`)
+// })
