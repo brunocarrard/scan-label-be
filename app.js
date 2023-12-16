@@ -22,7 +22,7 @@ const config = {
     }
   };
   
-app.get('/node/express/scan-label-be/', async (req, res) => {
+app.get('/', async (req, res) => {
     let { suaPropriedade } = req.query;
     if (!suaPropriedade) {
       return res.status(400).send('A propriedade é obrigatória na requisição.');
@@ -35,7 +35,7 @@ app.get('/node/express/scan-label-be/', async (req, res) => {
   
 })
 
-app.post('/node/express/scan-label-be/', async (req, res) => {
+app.post('/', async (req, res) => {
   let delLines = VerifyV1(req.body.delLines);
   let oldDelLines = await GetDelLines(req.body.ordNr)
   oldDelLines.forEach(line => {
