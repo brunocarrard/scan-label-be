@@ -3,7 +3,7 @@ const cors = require('cors');
 const mssql = require('mssql');
 
 const app = express()
-const port = 3000
+const port = 3001
 
 app.use(cors());
 
@@ -28,7 +28,7 @@ app.get('/', async (req, res) => {
     }
 
     let result = await GetDelLines(suaPropriedade).catch(error => { res.status(500).send('Erro no servidor'); })
-
+    console.log(result)
     if (result.length === 0 ) res.status(404).send('Could not find SO');
     else res.json(workData(result));        
   
